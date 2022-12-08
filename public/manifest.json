@@ -1,0 +1,10 @@
+{
+  "short_name": "Cosmos governance",
+  "name": "Cosmos Governance Citadel.one app",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

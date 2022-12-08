@@ -1,0 +1,52 @@
+/* TODO - remove !important after fix in ui-kit */
+
+.fz-16 {
+    font-size: 16px;
+}
+.text-regular {
+    font-weight: 400 !important;
+}
+
+.text-semibold {
+    font-weight: 600 !important;
+}
+
+.text-bold {
+    font-weight: 700 !important;
+}
+
+.color-black {
+    color: #292929 !important;
+}
+
+.color-violet {
+    color: #5639E0 !important;
+}
+
+.color-dark-violet {
+    color: #3F337D !important;
+}
+
+.color-gray {
+    color: #59779A !important;
+}
+
+.color-lightgray {
+    color: #6B93C0 !important;
+}
+
+.color-lightblue {
+    color: #0095D6 !important;
+}
+
+.text-wrap {
+    white-space: pre-wrap;
+}
+
+.mr-1 {
+    margin-right: 8px;
+}
+
+.mb-4 {
+    margin-bottom: 24px;
+}

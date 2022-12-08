@@ -1,0 +1,120 @@
+.network-selector {
+    margin-bottom: 18px;
+}
+
+.proposal-details__type-info {
+    background-color: #F4F6FF;
+    padding: 16px;
+    color: #59779A;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.proposal-details__percentage-line {
+    margin: 20px 0;
+}
+
+.proposal-details-votes {
+    margin-left: 16px;
+}
+
+.proposal-details-vote__text {
+    display: flex;
+    align-items: center;
+}
+
+.proposal-details-vote {
+    color: #6B93C0;
+}
+
+.proposal-details-vote__option {
+    padding-left: 0.3em;
+    font-weight: 700;
+}
+
+.proposal-details-vote__number {
+    filter: brightness(0.75);
+    font-weight: 600;
+}
+
+.proposal-details__your-vote {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.proposal-details__header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 32px;
+    margin-bottom: 18px;
+}
+
+
+.select-vote-modal__header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #C3CEEB;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #292929;
+}
+
+.select-vote-modal__description {
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.select-vote-modal__footer {
+    display: flex;
+    justify-content: center;
+}
+
+.select-address-modal__description {
+    margin-bottom: 16px;
+}
+
+.select-address-modal__id,
+.select-vote-modal__title {
+    width: 75%;
+}
+
+.select-address-modal__id {
+    font-size: 16px;
+    color: #3F337D;
+    font-weight: 700;
+}
+
+.select-vote-modal__title {
+    font-size: 16px;
+    color: #3F337D;
+}
+
+.select-address-modal__description > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.select-vote-modal__address {
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
+.select-vote-modal__address:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 482px) {
+    .proposal-details__your-vote {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .select-vote-modal__header {
+        font-size: 18px;
+    }
+}

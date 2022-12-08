@@ -1,0 +1,55 @@
+.select-vote {
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.select-vote > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-vote > div > span:first-child {
+    width: 75%;
+    line-height: 1.5em;
+}
+
+.select-vote-address__status {
+    width: 70px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C6D1FF;
+    border-radius: 4px;
+    color: #5639E0;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.select-vote-address {
+    cursor: pointer;
+}
+
+.select-vote-address--voted {
+    cursor: not-allowed;
+}
+
+.select-vote-address--active,
+.select-vote-address--active:hover {
+    background-color: #3f337d;
+}
+
+.select-vote-address--active .card-address-name,
+.select-vote-address--active .card-balance,
+.select-vote-address--active:hover .card-address-name,
+.select-vote-address--active:hover .card-balance {
+    color: #fff;
+}
+
+.select-vote-address--active .ca-address-address,
+.select-vote-address--active .card-net,
+.select-vote-address--active:hover .card-net,
+.select-vote-address--active:hover .ca-address-address {
+    color: #c6d1ff
+}

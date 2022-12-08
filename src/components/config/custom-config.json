@@ -1,0 +1,39 @@
+{
+    "TABBAR": {
+        "BACKGROUND_COLOR": "#3F337D",
+        "DEFAULT_ITEM_COLOR": "#A18EFF",
+        "ACTIVE_ITEM_COLOR": "#fff",
+        "HOVER_ITEM_COLOR": "#bdb0ff",
+        "DISABLE_ITEM_COLOR": "#f5f5f5",
+        "TABBAR_ITEMS": [
+            {"TITLE": "Votes", "ICON": "voting", "ROUTES": "/"},
+            {"TITLE": "Transactions", "ICON": "square-list", "ROUTES": "/main/transactions"}
+        ]
+    },
+    "HEADER": {
+        "TITLE": "App header",
+        "BACK_TITLE": "Back",
+        "BACKGROUND_COLOR": "#FFF",
+        "TOP_BACKGROUND_COLOR": "#3F337D"
+    },
+    "SPLASH": {
+        "title": "Cosmos Governance",
+        "description": "Vote for ongoing proposals to enhance the Cosmos ecosystem",
+        "background_color": "#170A52",
+        "background": "bg.svg",
+        "circle_1": "#7C63F5",
+        "circle_2": "rgba(99, 84, 180, 0.5)",
+        "circle_3": "rgba(99, 84, 180, 0.2)",
+        "circle_4": "rgba(255, 255, 255, 0.1)",
+        "textColor": "#FFFFFF",
+        "mobileTextColor": "#FFFFFF",
+        "iconColor": "",
+        "mobileIconColor": "",
+        "logo": "logo.svg",
+        "logoStyleMOB": {
+            "width": "35%"
+        }
+    },
+    "DEFAULT_ADDRESS_BLOCK": true
+}
+

@@ -1,0 +1,9 @@
+/* reassign markdown default styles*/
+.proposal_description {
+    white-space: pre-wrap;
+
+}
+
+.proposal_description > * {
+    margin: 0;
+}
