@@ -7,7 +7,7 @@ const setOpenedTransaction = (flag) => ({
     payload: flag,
 });
 
-const loadTransactions = () => async (dispatch) => {
+const loadTransactions = (page = 1) => async (dispatch) => {
     dispatch({
         type: types.SET_TRANSACTIONS_LOADED,
         payload: false,
@@ -16,13 +16,15 @@ const loadTransactions = () => async (dispatch) => {
         type: types.SET_TRANSACTIONS_LIST,
         payload: [],
     });
-    const activeWallet = store.getState().wallet.activeWallet;
+    const { activeWallet } = store.getState().wallet;
+    const { auth_token } = store.getState().user;
+
     if (activeWallet) {
         const wallet = walletActions.getWalletConstructor(activeWallet);
-        wallet.getTransactions().then(response => {
+        wallet.getTransactions(page, auth_token).then(response => {
             dispatch({
                 type: types.SET_TRANSACTIONS_LIST,
-                payload: response?.data?.list,
+                payload: response?.data,
             });
             dispatch({
                 type: types.SET_TRANSACTIONS_LOADED,

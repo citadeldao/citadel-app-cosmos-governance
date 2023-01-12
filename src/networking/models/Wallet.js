@@ -38,16 +38,17 @@ export default class Wallet {
         }
     }
 
-    async getTransactions() {
-        const { auth_token } = store.getState().user;
+    async getTransactions(page, auth_token) {
         const params = {
             auth_token,
             address: this.address,
             net: this.net,
+            offset: page - 1,
         };
 
         try {
             const data = await requestManager.send(transactionsRequest.getTransactions(params));
+
             if (data.ok) {
                 return data;
             }
