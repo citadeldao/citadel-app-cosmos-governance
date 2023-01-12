@@ -7,6 +7,14 @@ const setPreviousPanel = (panel) => dispatch => {
     });
 };
 
+const setCurrentPanel = (panel) => dispatch => {
+    dispatch({
+        type: types.SET_CURRENT_PANEL,
+        payload: panel,
+    });
+};
+
 export const panelActions = {
     setPreviousPanel,
+    setCurrentPanel,
 };

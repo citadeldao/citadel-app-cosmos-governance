@@ -5,7 +5,7 @@
   "homepage": "./",
   "dependencies": {
     "@citadeldao/apps-sdk": "^0.0.242",
-    "@citadeldao/apps-ui-kit": "^0.453.0",
+    "@citadeldao/apps-ui-kit": "^0.504.0",
     "@sentry/react": "^7.1.1",
     "@sentry/tracing": "^7.1.1",
     "@testing-library/jest-dom": "^5.16.4",

@@ -1,47 +1,48 @@
-.transactions-details-block span{
+.transactions-details-block span {
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
 }
-
-.transactions-details-block .transaction-address{
+.transactions-details-block .transaction-address {
     color: #5639E0;
+    font-weight: 600;
 }
 
-.transactions-details-block .transactions-amount{
+.transactions-details-block .transactions-amount {
     font-weight: 700;
     color: #5639E0;
 }
 
-.transactions-details-block .transaction-ticker{
+.transactions-details-block .transaction-ticker {
     color: black;
+    padding-left: 4px;
 }
 
-.transactions-details-fee{
+.transactions-details-fee {
     font-weight: 700 !important;
     color: #0091A6;
 }
 
-.transactions-status{
-    color: #0F8932;
-    font-weight: 700 !important;
-} 
-
-.transactions-status-failed {
-    color:  #CC3030;
+.transactions-status {
+    color: #0F8932 !important;
     font-weight: 700 !important;
 }
 
-.transactions-details-block .row .custom-icon{
+.transactions-status-failed {
+    color:  #CC3030 !important;
+    font-weight: 700 !important;
+}
+
+.transactions-details-block .row .custom-icon {
     margin-left: 4px;
 }
 
-.transaction-datetime{
+.transaction-datetime {
     font-weight: 600 !important;
     color: #6B93C0;
 }
 
-.no-transactions-block{
+.no-transactions-block {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,13 +50,14 @@
     margin: 17% auto auto;
 }
 
-.no-transactions-block h3{
+.no-transactions-block h3 {
     margin-bottom: 0;
     font-weight: 700;
+    margin-top: 35px;
 }
 
-.no-transactions-block p{
-    color: #28436E;
+.no-transactions-block p {
+    color: #6B93C0;
     text-align: center;
     width: 70%;
     font-size: 15px;
