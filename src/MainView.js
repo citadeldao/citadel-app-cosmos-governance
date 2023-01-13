@@ -83,7 +83,7 @@ const MainView = () => {
                 <ProposalDetailsPanel id={ROUTES.PROPOSAL_DETAILS} />
                 <SelectVotePanel id={ROUTES.SELECT_VOTE} />
                 <Modal
-                    title={<Alert text={text.ADDRESS_ERROR_HEADER} iconColor="#00B2FE" boldText/>}
+                    title={<Alert title={text.ADDRESS_ERROR_HEADER} iconColor="#00B2FE" boldText/>}
                     description={text.ADDRESS_ERROR_DESCRIPTION}
                     id={ROUTES.PROPOSALS}
                     show={showModal}
