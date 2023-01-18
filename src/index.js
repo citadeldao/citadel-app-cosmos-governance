@@ -10,20 +10,21 @@ import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import { Config } from './components/config/config';
 import { walletActions } from './store/actions/index';
-const enabled = window.location.href.search('/localhost') === -1 &&
-    window.location.href.search('/192.168.') === -1;
 
 if (window.location.hash !== routes.HOME && process.env.NODE_ENV !== 'production') {
     window.location.hash = routes.HOME;
 }
 
-Sentry.init({
-    dsn: enabled ?
-        'https://5c05e134a0f74a7b985c06ad96e81e73@o510489.ingest.sentry.io/6477719'
-        : null,
-    integrations: [new BrowserTracing()],
-    tracesSampleRate: 1.0,
-});
+if (process.env.REACT_APP_SENTRY_URL) {
+    Sentry.init({
+        dsn: process.env.REACT_APP_SENTRY_URL,
+        integrations: [new BrowserTracing()],
+        tracesSampleRate: 0.5,
+        tunnel: new URL(process.env.REACT_APP_SENTRY_URL).origin + '/tunnel',
+        environment: process.env.REACT_APP_SENTRY_ENV,
+    });
+}
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<Provider store={store}><App/></Provider>);
