@@ -4,7 +4,9 @@ const initialState = {
     openedTransaction: [],
     transactions: [],
     transactionsLoaded: false,
+    activePage: 1,
 };
+
 export default function TransactionsReducer(state = initialState, action) {
     switch (action.type) {
         case types.SET_OPENED_TRANSACTION:
@@ -26,6 +28,11 @@ export default function TransactionsReducer(state = initialState, action) {
             return {
                 ...state,
                 transactionsLoaded: action.payload,
+            };
+        case types.SET_TRANSACTIONS_PAGE:
+            return {
+                ...state,
+                activePage: action.payload,
             };
         default:
             return state;

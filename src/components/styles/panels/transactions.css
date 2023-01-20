@@ -1,11 +1,9 @@
 .transactions-details-block span {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
 }
+
 .transactions-details-block .transaction-address {
     color: #5639E0;
-    font-weight: 600;
 }
 
 .transactions-details-block .transactions-amount {
@@ -15,7 +13,7 @@
 
 .transactions-details-block .transaction-ticker {
     color: black;
-    padding-left: 4px;
+    margin-left: 4px;
 }
 
 .transactions-details-fee {
@@ -24,12 +22,12 @@
 }
 
 .transactions-status {
-    color: #0F8932 !important;
+    color: #0F8932;
     font-weight: 700 !important;
 }
 
 .transactions-status-failed {
-    color:  #CC3030 !important;
+    color: #CC3030;
     font-weight: 700 !important;
 }
 
@@ -53,12 +51,36 @@
 .no-transactions-block h3 {
     margin-bottom: 0;
     font-weight: 700;
-    margin-top: 35px;
 }
 
 .no-transactions-block p {
-    color: #6B93C0;
+    color: #28436E;
     text-align: center;
     width: 70%;
     font-size: 15px;
+}
+
+.transactions-link {
+    text-decoration: none;
+    color: #0091A6;
+}
+
+.mobile-link {
+    display: none;
+}
+
+.center .pagination {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+
+@media screen and (max-width: 520px) {
+    .mobile-link {
+        display: block;
+    }
+
+    .web-link {
+        display: none;
+    }
 }
