@@ -23,7 +23,7 @@ const ProposalVotes = ({ votes, className }) => {
                                 className="proposal-vote__percent"
                                 style={{ color: vote.color }}
                             >
-                                {vote.percent}%
+                                {Number(vote.percent) || 0}%
                             </div>
                         </div>
                     </figcaption>

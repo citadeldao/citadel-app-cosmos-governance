@@ -38,33 +38,29 @@ export const getProposals = (page) => async (dispatch, getState) => {
             'pagination.reverse': pagination.reverse,
             'pagination.count_total': true,
         },
-    })
-        .then((data) => {
-            proposals = data.proposals;
-            dispatch({
-                type: types.SET_PROPOSALS_PAGINATION,
-                payload: data.pagination,
-            });
-        })
-        .catch((error) => {
-            dispatch(errorActions.checkErrors(error));
+    }).then((data) => {
+        proposals = data.proposals;
+        dispatch({
+            type: types.SET_PROPOSALS_PAGINATION,
+            payload: data.pagination,
         });
-
-
-    const proposalsVotingPeriod = proposals
-        .filter(proposal => proposal.status === 'PROPOSAL_STATUS_VOTING_PERIOD');
-
-    // get tally results for status VOTING_PERIOD proposals (default are empty)
-    const voteResults = proposalsVotingPeriod.map(proposal => {
-        return cosmos.call('gov', `/proposals/${proposal.proposal_id}/tally`, {
-            timeout: 5000,
-            attempts: 10,
-        });
+    }).catch((error) => {
+        dispatch(errorActions.checkErrors(error));
     });
 
-    // get tallies and user votes
-    await Promise.all(voteResults)
-        .then(responses => {
+    if (activeWallet.network !== 'osmosis') {
+        const proposalsVotingPeriod = proposals.filter(proposal => proposal.status === 'PROPOSAL_STATUS_VOTING_PERIOD');
+
+        // get tally results for status VOTING_PERIOD proposals (default are empty)
+        const voteResults = proposalsVotingPeriod.map(proposal => {
+            return cosmos.call('gov', `/proposals/${proposal.proposal_id}/tally`, {
+                timeout: 7000,
+                attempts: 10,
+            });
+        });
+
+        // get tallies and user votes
+        await Promise.all(voteResults).then(responses => {
             proposalsVotingPeriod.forEach(({ proposal_id }, index) => {
                 const proposalIndex = proposals.findIndex(p => p.proposal_id === proposal_id);
                 const newProposal = proposals[proposalIndex];
@@ -72,11 +68,10 @@ export const getProposals = (page) => async (dispatch, getState) => {
                 newProposal.final_tally_result = responses[index].tally;
                 proposals.splice(proposalIndex, 1, newProposal);
             });
-        })
-        .catch((error) => {
+        }).catch((error) => {
             dispatch(errorActions.checkErrors(error));
         });
-
+    }
 
     // prepare and set finally data
     const convertedData = dataConverter(proposals, getState);
@@ -101,9 +96,7 @@ export const getProposalsVotes = () => async (dispatch, getState) => {
     const requestManager = new RequestManager();
     let userVotes = [];
 
-    const proposalsVotingPeriodIDs = proposals
-        .filter(proposal => proposal.status === 'PROPOSAL_STATUS_VOTING_PERIOD')
-        .map(prop => prop.id);
+    const proposalsVotingPeriodIDs = proposals.filter(proposal => proposal.status === 'PROPOSAL_STATUS_VOTING_PERIOD').map(prop => prop.id);
 
     // get user votes
     const userVotesQueries = proposals.map(proposal => {
@@ -119,18 +112,13 @@ export const getProposalsVotes = () => async (dispatch, getState) => {
                     timeout: 5000,
                 },
             ));
-    })
-    .reduce((acc, q) => acc.concat(q), []);
+    }).reduce((acc, q) => acc.concat(q), []);
 
-    await Promise.allSettled(userVotesQueries)
-        .then((responses) => {
-            userVotes = responses
-                .filter(res => res.status === 'fulfilled')
-                .map(vote => vote.value.vote || vote.value.result);
-        })
-        .catch((error) => {
-            dispatch(errorActions.checkErrors(error));
-        });
+    await Promise.allSettled(userVotesQueries).then((responses) => {
+        userVotes = responses.filter(res => res.status === 'fulfilled').map(vote => vote.value.vote || vote.value.result);
+    }).catch((error) => {
+        dispatch(errorActions.checkErrors(error));
+    });
 
     // set votes for proposals
     const proposalsWithVotes = proposals.map((proposal) => {
@@ -155,24 +143,19 @@ export const getProposalsVotes = () => async (dispatch, getState) => {
         type: types.SET_PROPOSALS,
         payload: proposalsWithVotes,
     });
-}
+};
 
 const dataConverter = (data, getState) => {
     const { netSDK } = getState().app;
 
     return data.map((proposal) => {
-        const total = Object
-            .values(proposal.final_tally_result)
-            .reduce((acc, votes) => acc + Number(votes), 0);
-        const votes = Object
-            .entries(proposal.final_tally_result)
-            .map(([key, value]) => ({
-                option: VOTE_OPTIONS[`VOTE_OPTION_${key.toUpperCase()}`],
-                votes: netSDK.getAmountByDenom(value),
-                percent: ((value / total) * 100).toFixed(2),
-                color: VOTE_COLORS[`VOTE_OPTION_${key.toUpperCase()}`],
-            }))
-            .sort((a, b) => b.votes - a.votes);
+        const total = Object.values(proposal.final_tally_result).reduce((acc, votes) => acc + Number(votes), 0);
+        const votes = Object.entries(proposal.final_tally_result).map(([key, value]) => ({
+            option: VOTE_OPTIONS[`VOTE_OPTION_${key.toUpperCase()}`],
+            votes: netSDK.getAmountByDenom(value),
+            percent: ((value / total) * 100).toFixed(2),
+            color: VOTE_COLORS[`VOTE_OPTION_${key.toUpperCase()}`],
+        })).sort((a, b) => b.votes - a.votes);
         const type = proposal.content['@type'].split('.').at(-1);
 
         return {
