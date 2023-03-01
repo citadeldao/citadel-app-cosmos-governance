@@ -2,6 +2,7 @@ import { types } from './types';
 import { store } from '../store';
 import { getRequest } from '../../networking/requests/getRequest';
 import { utils } from '@citadeldao/apps-sdk';
+import { errorActions } from './errorsActions';
 
 const requestManager = new utils.RequestManager();
 const userRequest = getRequest('user');
@@ -19,19 +20,23 @@ const loadSocketToken = () => (dispatch) => {
                 payload: res.data?.data,
             });
         });
-    } catch {}
+    } catch (e) {
+        store.dispatch(errorActions.checkErrors(e));
+    }
 };
 
 const loadUserConfig = async () => {
     const { auth_token } = store.getState().user;
     try {
         let result = await requestManager.send(userRequest.getUserConfig(auth_token));
+
         store.dispatch({
             type: types.SET_USER_CONFIG,
-            payload: result.data && JSON.parse(result.data),
+            payload: result.data || JSON.parse(result.data),
         });
-        return result.data && JSON.parse(result.data);
-    } catch {
+        return result.data || JSON.parse(result.data);
+    } catch (error) {
+        store.dispatch(errorActions.checkErrors(error));
         return null;
     }
 };
@@ -42,7 +47,9 @@ const setUserConfig = (config = null) => {
 
     try {
         requestManager.send(userRequest.setUserConfig(auth_token, data));
-    } catch {}
+    } catch (error) {
+        store.dispatch(errorActions.checkErrors(error));
+    }
 };
 
 export const usersActions = {

@@ -51,7 +51,8 @@ const loadWalletWithBalances = () => async (dispatch) => {
             setTimeout(() => {
                 stopSplashLoader();
             }, 1000);
-        }).catch(() => {
+        }).catch((e) => {
+            dispatch(errorActions.checkErrors(e));
             dispatch(setActiveWallet(wallets[0]));
             setTimeout(() => {
                 stopSplashLoader();

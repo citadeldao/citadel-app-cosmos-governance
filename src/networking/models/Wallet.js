@@ -3,6 +3,7 @@ import { ImplementationError } from './Errors';
 import { store } from '../../store/store';
 import * as Sentry from '@sentry/react';
 import { utils } from '@citadeldao/apps-sdk';
+import { errorActions } from '../../store/actions';
 
 const walletRequest = getRequest('wallet');
 const transactionsRequest = getRequest('transactions');
@@ -32,6 +33,7 @@ export default class Wallet {
                 return data;
             }
         } catch (e) {
+            store.dispatch(errorActions.checkErrors(e.response?.data?.error));
             Sentry.captureException(e.response?.data?.error);
 
             return new Error(e.response?.data?.error);
@@ -53,6 +55,7 @@ export default class Wallet {
                 return data;
             }
         } catch (e) {
+            store.dispatch(errorActions.checkErrors(e.response?.data?.error));
             Sentry.captureException(e.response?.data?.error);
             return new Error(e.response?.data?.error);
         }
@@ -75,6 +78,7 @@ export default class Wallet {
                 return data;
             }
         } catch (e) {
+            store.dispatch(errorActions.checkErrors(e));
             return null;
         }
     }

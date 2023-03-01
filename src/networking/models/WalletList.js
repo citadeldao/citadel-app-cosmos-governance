@@ -1,6 +1,7 @@
 import { ValidationError } from './Errors';
-import { walletActions } from '../../store/actions';
+import { errorActions, walletActions } from '../../store/actions';
 import axios from 'axios';
+import { store } from '../../store/store';
 
 export class WalletList {
     getTxUrl(net) {
@@ -66,7 +67,8 @@ export class WalletList {
                     }
                 });
             }
-        } catch {
+        } catch (e) {
+            store.dispatch(errorActions.checkErrors(e));
         }
         return wallets;
     }
