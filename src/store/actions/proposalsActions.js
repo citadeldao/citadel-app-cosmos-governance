@@ -156,7 +156,7 @@ const dataConverter = (data, getState) => {
             percent: ((value / total) * 100).toFixed(2),
             color: VOTE_COLORS[`VOTE_OPTION_${key.toUpperCase()}`],
         })).sort((a, b) => b.votes - a.votes);
-        const type = proposal.content['@type'].split('.').at(-1);
+        const type = proposal.content['@type'].split('.').slice(-1);
 
         return {
             id: proposal.proposal_id,
