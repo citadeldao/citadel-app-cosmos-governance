@@ -1,13 +1,7 @@
 import { ValidationError } from './Errors';
 import { errorActions, walletActions } from '../../store/actions';
-import { utils } from '@citadeldao/apps-sdk';
+import axios from 'axios';
 import { store } from '../../store/store';
-import { getRequest } from '../requests/getRequest.js';
-
-const { getWallets, getNetworks } = getRequest('wallet');
-const { RequestManager } = utils;
-
-const rm = new RequestManager();
 
 export class WalletList {
     getTxUrl(net) {
@@ -25,23 +19,28 @@ export class WalletList {
     }
 
     async getWallets() {
-        const { auth_token } = store.getState().user;
-
         try {
-            const { data: wallets } = await rm.send(getWallets(auth_token));
-            const networks = await rm.send(getNetworks(auth_token));
-
+            const qs = require('querystring');
+            const params = window.location.search.slice(1);
+            const paramsAsObject = qs.parse(params);
+            let arr = JSON.parse(paramsAsObject.wallets);
+            let wallets = null;
+            const res = await axios.get(process.env.REACT_APP_MAIN_SERVER_URL + '/networks.json');
+            let networks = res.data;
             // eslint-disable-next-line
-            return wallets.length
-                ? wallets.map(item => ({
+            wallets = arr.length ? eval(paramsAsObject.wallets).map(item => {
+                return {
                     address: item?.address,
-                    network: item.net,
-                    name: networks[item.net]?.name,
-                    code: networks[item.net]?.code,
-                    decimals: networks[item.net]?.decimals,
-                    publicKey: item.publicKey,
-                }))
-                : new ValidationError();
+                    network: item?.net,
+                    name: networks[item?.net]?.name,
+                    code: networks[item?.net]?.code,
+                    decimals: networks[item?.net]?.decimals,
+                    publicKey: item?.publicKey,
+                    from: item?.from,
+                    getTxUrl: this.getTxUrl(item?.net),
+                };
+            }) : new ValidationError();
+            return wallets;
         } catch (e) {
             return new ValidationError(e);
         }

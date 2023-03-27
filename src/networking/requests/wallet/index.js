@@ -47,20 +47,10 @@ const getNetworks = () => {
         process.env.REACT_APP_MAIN_SERVER_URL + '/networks.json');
 };
 
-const getWallets = (token) => {
-    return new utils.Request(
-        'get',
-        `${process.env.REACT_APP_BACKEND_URL}/configs/wallets`,
-        {
-            params: { token },
-        });
-};
-
 export const wallet = {
     getWalletBalance,
     prepareBaseTransfer,
     getStakeNodes,
     getStakeList,
     getNetworks,
-    getWallets,
 };
